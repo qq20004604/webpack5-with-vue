@@ -1,9 +1,9 @@
 ﻿const path = require('path');
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const gitManager = require('./git_manage.js').gitManager;
 const fs = require('fs');
 const isProd = process.env.npm_lifecycle_event.indexOf('build') > -1;
@@ -241,12 +241,12 @@ const config = {
         new MiniCssExtractPlugin({ // 分离css
             filename: 'css/[name].css'
         }),
+        ...entries.plugins,
     ]
 };
 
 if (isProd) {
     config.plugins = [
-        ...entries.plugins,
         ...config.plugins,
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [resolve('dist/**/*')]
@@ -280,7 +280,7 @@ if (isProd) {
                 }
             }
         },
-        runtimeChunk: { name: 'runtime' } // 为每个入口提取出webpack runtime模块
+        runtimeChunk: {name: 'runtime'} // 为每个入口提取出webpack runtime模块
     };
     config.externals = {
         'vue': 'Vue',
@@ -293,17 +293,12 @@ if (isProd) {
     config.plugins = [
         new webpack.HotModuleReplacementPlugin(),
         ...config.plugins,
-        new HtmlWebpackPlugin({
-            template: resolve('index_dev.html'), // 引入模版
-            filename: 'index.html',
-            minify: { // 对index.html压缩
-                collapseWhitespace: isProd, // 去掉index.html的空格
-                removeAttributeQuotes: isProd // 去掉引号
-            },
-            title: 'development',
-            hash: true, // 去掉上次浏览器的缓存（使浏览器每次获取到的是最新的html）
-            inlineSource: '.(js|css)'
-        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': '"development"',
+                'date': `"${new Date().toLocaleString()}"`
+            }
+        })
     ]
 }
 

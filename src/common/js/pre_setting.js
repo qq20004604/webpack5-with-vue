@@ -10,7 +10,6 @@ import forDevelopment from 'plugin/for_development';
 import Element from 'element-ui';
 import http from '@/api/ajax.js';
 import URL from './url';
-import 'common/js/auth.js';
 import 'common/less/config.less'
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -24,6 +23,13 @@ const CommonUtils = {
         // Vue.use(ElementUI)
         // 按需加载
         Vue.use(Element);
+
+        if (!document.getElementById("app")) {
+            const DOM = document.createElement("div");
+            DOM.id = 'app';
+            document.body.append(DOM);
+        }
+
         window.version = process.env.date;
         // todo 以后以下这些也归属到开发模式下用
         Vue.use(forDevelopment);

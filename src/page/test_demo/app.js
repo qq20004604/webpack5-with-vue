@@ -18,8 +18,10 @@ const TITLE = '测试demo，纯vue'
 CommonUtils.setTitle(TITLE);
 CommonUtils.init();
 
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
-    template: render => render(App)
+    template: '<App/>',
+    components: {App}
 })
