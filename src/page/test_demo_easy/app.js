@@ -10,10 +10,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App.vue';
-import Element from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import CommonUtils from '@/common/js/pre_setting.js';
 
-Vue.use(Element);
+CommonUtils.init();
 
 /* eslint-disable no-new */
 new Vue({

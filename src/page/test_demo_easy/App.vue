@@ -12,7 +12,6 @@
     const i1 = require('../../assets/hill.png');
     // import i2 from '../assets/hill.png';
 
-    import Test from './table';
 
     console.log(i1);
     // console.log(i2)
@@ -20,9 +19,6 @@
     export default {
         created () {
             window.app = this;
-        },
-        components: {
-            Test
         },
         name: 'app',
         data () {
