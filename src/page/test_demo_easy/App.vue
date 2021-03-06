@@ -3,37 +3,39 @@
         <el-button type="primary">
             455621114
         </el-button>
-        <img :src="imgurl" alt="" class="img">
+        <img :src="imgurl"
+             alt=""
+             class="img"/>
         <!--        <Test/>-->
-        <div class="bk"></div>
+        <div class="bk"/>
     </div>
 </template>
 <script>
-const i1 = require('../../assets/hill.png');
-// import i2 from '../assets/hill.png';
+    const i1 = require('../../assets/hill.png')
+    // import i2 from '../assets/hill.png';
 
-console.log(i1);
-// console.log(i2)
+    console.log(i1)
+    // console.log(i2)
 
-export default {
-    created () {
-        window.app = this;
-    },
-    name: 'app',
-    data () {
-        return {
-            imgurl: i1
-            // imgurl: require('../assets/hill.png')
-            // imgurl: ''
-            // imgurl: '/src/assets/hill.png'
-        }
-    },
-    computed: {},
-    methods: {
-        test_login () {
+    export default {
+        name: 'App',
+        data () {
+            return {
+                imgurl: i1
+                // imgurl: require('../assets/hill.png')
+                // imgurl: ''
+                // imgurl: '/src/assets/hill.png'
+            }
+        },
+        computed: {},
+        created () {
+            window.app = this
+        },
+        methods: {
+            test_login () {
+            }
         }
     }
-};
 
 </script>
 

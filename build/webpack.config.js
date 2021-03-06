@@ -203,7 +203,7 @@ const config = {
                                 return '[contenthash].[ext]'
                             },
                             // name: '[name].[contenthash:10].[ext]',   // 文件名
-                            publicPath: Tag ? `../../${Tag}/static/` : `../static/`,
+                            publicPath: Tag ? `../../${Tag}/static/` : '../static/',
                             // publicPath: `../static/`,
 
                             // 输出目录，表现效果相当于 outputPath + name 这样，可以直接写在name里如 myImage/[name].[ext] 效果一样
@@ -238,7 +238,10 @@ const config = {
         }
     },
     plugins: [
-        new ESLintPlugin(),
+        new ESLintPlugin({
+            // fix: true,
+            extensions: ['js', 'vue']
+        }),
         new VueLoaderPlugin(), // vue加载器
         new MiniCssExtractPlugin({ // 分离css
             filename: 'css/[name].css'
