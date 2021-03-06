@@ -9,32 +9,31 @@
     </div>
 </template>
 <script>
-    const i1 = require('../../assets/hill.png');
-    // import i2 from '../assets/hill.png';
+const i1 = require('../../assets/hill.png');
+// import i2 from '../assets/hill.png';
 
+console.log(i1);
+// console.log(i2)
 
-    console.log(i1);
-    // console.log(i2)
-
-    export default {
-        created () {
-            window.app = this;
-        },
-        name: 'app',
-        data () {
-            return {
-                imgurl: i1
-                // imgurl: require('../assets/hill.png')
-                // imgurl: ''
-                // imgurl: '/src/assets/hill.png'
-            }
-        },
-        computed: {},
-        methods: {
-            test_login () {
-            }
+export default {
+    created () {
+        window.app = this;
+    },
+    name: 'app',
+    data () {
+        return {
+            imgurl: i1
+            // imgurl: require('../assets/hill.png')
+            // imgurl: ''
+            // imgurl: '/src/assets/hill.png'
         }
-    };
+    },
+    computed: {},
+    methods: {
+        test_login () {
+        }
+    }
+};
 
 </script>
 

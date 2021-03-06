@@ -4,22 +4,25 @@ module.exports = {
     root: true,
     parser: 'vue-eslint-parser',
     parserOptions: {
-        'parser': 'babel-eslint',
+        parser: 'babel-eslint',
         ecmaVersion: 2020,
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true
         },
-        'vueFeatures': {
-            'filter': true,
-            'interpolationAsNonHTML': false,
+        vueFeatures: {
+            filter: true,
+            interpolationAsNonHTML: false
         }
     },
     env: {
-        browser: true
+        browser: true,
+        es6: true
     },
+    // fix: true,
+    // extensions: ['js', 'vue'],
     // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-    extends: ['plugin:vue/base', 'standard', 'plugin:vue/comment-directive'],
+    extends: ['plugin:vue/base'],
     // required to lint *.vue files
     plugins: ['import', 'vue'],
     // add your custom rules here
@@ -34,6 +37,6 @@ module.exports = {
         'no-unused-vars': 0,
         semi: [0],
         quotes: [1, 'single'],
-        'vue/html-indent': 'off',
+        'vue/html-indent': 'off'
     }
-};
+}

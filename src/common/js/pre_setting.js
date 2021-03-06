@@ -24,8 +24,8 @@ const CommonUtils = {
         // 按需加载
         Vue.use(Element);
 
-        if (!document.getElementById("app")) {
-            const DOM = document.createElement("div");
+        if (!document.getElementById('app')) {
+            const DOM = document.createElement('div');
             DOM.id = 'app';
             document.body.append(DOM);
         }

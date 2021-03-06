@@ -1,43 +1,44 @@
-﻿const path = require('path');
+﻿const path = require('path')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const {VueLoaderPlugin} = require('vue-loader');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const gitManager = require('./git_manage.js').gitManager;
-const fs = require('fs');
-const isProd = process.env.npm_lifecycle_event.indexOf('build') > -1;
-const Tag = isProd ? gitManager.getCurrentCommitTagSync() : '';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const gitManager = require('./git_manage.js').gitManager
+const fs = require('fs')
+const isProd = process.env.npm_lifecycle_event.indexOf('build') > -1
+const Tag = isProd ? gitManager.getCurrentCommitTagSync() : ''
 
 function resolve (dir) {
-    return path.join(__dirname, '..', dir);
+    return path.join(__dirname, '..', dir)
 }
 
 //
 const getEntries = function () {
     // 获取page目录
-    let root = resolve('src/page');
-    let list = [];
+    let root = resolve('src/page')
+    let list = []
     // 读取该目录下所有文件和目录
-    let allfiles = fs.readdirSync(root);
+    let allfiles = fs.readdirSync(root)
     // 遍历
     allfiles.forEach(filename => {
-        let pname = path.join(`${root}/${filename}`);
-        let info = fs.statSync(pname);
+        let pname = path.join(`${root}/${filename}`)
+        let info = fs.statSync(pname)
         // 查看该文件是不是目录
         if (info.isDirectory()) {
             // 是，则将该文件目录加入到dirs里
             list.push({
                 filename,
                 path: path.join(`${pname}/app.js`)
-            });
+            })
         }
-    });
-    let entry = {};
+    })
+    let entry = {}
     // 配置入口
     list.forEach(item => {
-        entry[item.filename] = item.path;
-    });
+        entry[item.filename] = item.path
+    })
     // 配置 HtmlWebpackPlugin
     let plugins = list.map(item => {
         return new HtmlWebpackPlugin({
@@ -54,15 +55,15 @@ const getEntries = function () {
             hash: true, // 去掉上次浏览器的缓存（使浏览器每次获取到的是最新的html）
             chunks: [item.filename /*'vendor'*/], // 实现多入口的核心，决定自己加载哪个js文件，
             xhtml: true    // 自闭标签
-        });
-    });
+        })
+    })
     let result = {
         entry,
         plugins
-    };
-    return result;
-};
-const entries = getEntries();
+    }
+    return result
+}
+const entries = getEntries()
 
 const cssConfig = isProd ? [
     MiniCssExtractPlugin.loader,
@@ -102,7 +103,7 @@ const config = {
         compress: true,     // 开启Gzip压缩
         contentBase: resolve('public'),  // 将 public 目录下的文件，作为可访问文件。
         hot: true,
-        open: true, // 自动打开浏览器
+        // open: true, // 自动打开浏览器
         // overlay: { // 当出现编译器错误或警告时，就在网页上显示一层黑色的背景层和错误信息
         //     errors: true
         // },
@@ -126,12 +127,12 @@ const config = {
     module: {
         rules: [
             // {
-            //     test: /\.(js|vue)$/,
-            //     loader: 'eslint-loader',
-            //     enforce: 'pre',
-            //     options: {
-            //         formatter: require('eslint-friendly-formatter')
-            //     }
+            //   test: /\.(js|vue)$/,
+            //   loader: 'eslint-loader',
+            //   enforce: 'pre',
+            //   options: {
+            //     formatter: require('eslint-friendly-formatter')
+            //   }
             // },
             {
                 test: /\.js$/,
@@ -196,10 +197,10 @@ const config = {
                             // 这个是对publicPath使用的
                             name (resourcePath, resourceQuery) {
                                 if (!isProd) {
-                                    return '[name].[hash:10].[ext]';
+                                    return '[name].[hash:10].[ext]'
                                 }
 
-                                return '[contenthash].[ext]';
+                                return '[contenthash].[ext]'
                             },
                             // name: '[name].[contenthash:10].[ext]',   // 文件名
                             publicPath: Tag ? `../../${Tag}/static/` : `../static/`,
@@ -207,7 +208,7 @@ const config = {
 
                             // 输出目录，表现效果相当于 outputPath + name 这样，可以直接写在name里如 myImage/[name].[ext] 效果一样
                             outputPath: function (fileName) {
-                                return 'static/' + fileName;    // 后面要拼上这个 fileName 才行
+                                return 'static/' + fileName    // 后面要拼上这个 fileName 才行
                             }
                         }
                     }
@@ -237,13 +238,14 @@ const config = {
         }
     },
     plugins: [
+        new ESLintPlugin(),
         new VueLoaderPlugin(), // vue加载器
         new MiniCssExtractPlugin({ // 分离css
             filename: 'css/[name].css'
         }),
         ...entries.plugins,
     ]
-};
+}
 
 if (isProd) {
     config.plugins = [
@@ -280,15 +282,15 @@ if (isProd) {
                 }
             }
         },
-        runtimeChunk: {name: 'runtime'} // 为每个入口提取出webpack runtime模块
-    };
+        runtimeChunk: { name: 'runtime' } // 为每个入口提取出webpack runtime模块
+    }
     config.externals = {
         'vue': 'Vue',
         'vue-router': 'VueRouter',
         'vuex': 'Vuex',
         'element-ui': 'ELEMENT',
         'echarts': 'echarts'
-    };
+    }
 } else {
     config.plugins = [
         new webpack.HotModuleReplacementPlugin(),
@@ -302,4 +304,4 @@ if (isProd) {
     ]
 }
 
-module.exports = config;
+module.exports = config
