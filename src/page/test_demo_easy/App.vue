@@ -7,7 +7,7 @@
              alt=""
              class="img"/>
         <!--        <Test/>-->
-        <div class="bk"/>
+        <div class="bk"></div>
     </div>
 </template>
 <script>

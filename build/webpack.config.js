@@ -65,24 +65,32 @@ const getEntries = function () {
 }
 const entries = getEntries()
 
+const cssLoaderConfig = {
+    loader: 'css-loader',
+    options: {
+        modules: false,
+        sourceMap: !isProd
+    }
+}
+
 const cssConfig = isProd ? [
     MiniCssExtractPlugin.loader,
+    cssLoaderConfig,
     {
-        loader: 'css-loader',
+        loader: 'postcss-loader',
         options: {
-            modules: false,
             sourceMap: !isProd
         }
+    },
+    {
+        loader: 'less-loader'   // compiles Less to CSS
     }
 ] : [
     'vue-style-loader',
     'style-loader',
+    cssLoaderConfig,
     {
-        loader: 'css-loader',
-        options: {
-            modules: false,
-            sourceMap: !isProd
-        }
+        loader: 'less-loader'   // compiles Less to CSS
     }
 ]
 
@@ -126,14 +134,6 @@ const config = {
     },
     module: {
         rules: [
-            // {
-            //   test: /\.(js|vue)$/,
-            //   loader: 'eslint-loader',
-            //   enforce: 'pre',
-            //   options: {
-            //     formatter: require('eslint-friendly-formatter')
-            //   }
-            // },
             {
                 test: /\.js$/,
                 use: [
@@ -149,16 +149,14 @@ const config = {
             {
                 test: /\.vue$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'vue-loader',
-                        options: {
-                            loaders: {
-                                css: cssConfig
-                            }
-                        }
-                    }
-                ]
+                loader: 'vue-loader',
+                options: {
+                    css: ['css-loader'],
+                    postcss: isProd ? [
+                        require('autoprefixer')
+                    ] : [],
+                    less: ['less-loader']
+                }
             },
             {
                 test: /\.css$/,
@@ -203,7 +201,7 @@ const config = {
                                 return '[contenthash].[ext]'
                             },
                             // name: '[name].[contenthash:10].[ext]',   // 文件名
-                            publicPath: Tag ? `../../${Tag}/static/` : '../static/',
+                            publicPath: Tag ? `${Tag}/static/` : 'static/',
                             // publicPath: `../static/`,
 
                             // 输出目录，表现效果相当于 outputPath + name 这样，可以直接写在name里如 myImage/[name].[ext] 效果一样
