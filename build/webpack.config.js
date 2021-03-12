@@ -111,7 +111,7 @@ const config = {
         compress: true,     // 开启Gzip压缩
         contentBase: resolve('public'),  // 将 public 目录下的文件，作为可访问文件。
         hot: true,
-        // open: true, // 自动打开浏览器
+        open: true, // 自动打开浏览器
         // overlay: { // 当出现编译器错误或警告时，就在网页上显示一层黑色的背景层和错误信息
         //     errors: true
         // },
@@ -134,18 +134,21 @@ const config = {
     },
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            cacheDirectory: !isProd
-                        }
-                    }
-                ],
-                exclude: /node_modules/,
-            },
+            // {
+            //     test: /\.(js|vue)$/,
+            //     use: [
+            //         {
+            //             loader: 'babel-loader',
+            //             options: {
+            //                 cacheDirectory: !isProd
+            //             }
+            //         },
+            //         {
+            //             loader: 'vue-loader',
+            //         }
+            //     ],
+            //     exclude: /node_modules/,
+            // },
             {
                 test: /\.vue$/,
                 exclude: /node_modules/,

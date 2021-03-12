@@ -46,13 +46,17 @@ module.exports = {
             'endTag': 'never',
             'selfClosingTag': 'never'
         }],
-        'vue/max-attributes-per-line': ['error', {
-            'singleline': 3,
-            'multiline': {
-                'max': 1,
-                'allowFirstLine': true
-            }
-        }],
+        'vue/max-attributes-per-line': 0,
+        'vue/attributes-order': 0,
+        'vue/order-in-components': 0,
+        // 'vue/max-attributes-per-line': ['error', {
+        //     'singleline': 3,
+        //     'multiline': {
+        //         'max': 1,
+        //         'allowFirstLine': true
+        //     },
+        //     'ignore': ['svg']
+        // }],
         'vue/html-self-closing': ['error', {
             'html': {
                 'void': 'always',
@@ -65,6 +69,7 @@ module.exports = {
         'vue/html-closing-bracket-newline': ['error', {
             'singleline': 'never',
             'multiline': 'never'
-        }]
+        }],
+        'vue/singleline-html-element-content-newline': 0
     }
 }
