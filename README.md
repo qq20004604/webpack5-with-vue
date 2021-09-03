@@ -43,11 +43,9 @@ What's in Vue?
 
 ## 2、How to install?
 
-安装和fix一些npm包
+安装
 
 > npm install
-> 
-> npm audit fix
 
 开发模式
 
@@ -64,6 +62,10 @@ What's in Vue?
 webstorm应用eslint规则（格式化时自动将代码格式化为符合规则的格式）：
 
 <img src='./doc/01.png'/>
+
+editorconfig 配置：
+
+<img src="./doc/01.png"/>
 
 ## 4、How to use cli？
 
@@ -118,7 +120,7 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 │   │   ├── test_demo.css
 │   │   └── test_page.css
 │   ├── static	// src/static下的文件会被打包到这里（无论是否引用）
-│   │   └── 
+│   │   └──
 │   ├── test_demo.html	// src/page/test_demo打包的html
 │   ├── test_demo.js	// src/page/test_demo打包的js
 │   ├── test_page.html	// src/page/test_page打包的html
@@ -138,7 +140,7 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 │   │   │   └── reset.css	// 重置css样式，使不同浏览器体验统一
 │   │   ├── js	// 需要在其他组件引入的js库，比如你自己写的html选择器
 │   │   └── less	// 需引入的less文件，或者less属性配置
-│   │   │   └── config.less	// 比如让某个变量等于某些颜色 
+│   │   │   └── config.less	// 比如让某个变量等于某些颜色
 │   ├── components	// 所有子组件应该放这里
 │   │   ├── test
 │   │   └── 子组件放在这里，建议每个相关组件，放在同一个文件夹下
@@ -163,7 +165,7 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 │   │   └── 静态资源放这里，会被一起移动到打包后的static文件夹下（无论是否被引用）
 │   └── store		// vuex的store文件放这里，每个入口一个文件夹
 │       ├── test_store	// 对应的是page/test_store
-│       └── 
+│       └──
 ├── .eslintrc.js	// eslint，不需要改
 ├── .editorconfig	// eslint，不需要改
 ├── .gitignore	// 不会被加入到git列表里的文件
@@ -183,29 +185,30 @@ webstorm应用eslint规则（格式化时自动将代码格式化为符合规则
 ```
 // 上略
 const $ajax = {
-    test_login () {
-        return get('/test_login', {});
-    }
+    // 示例
+    test1 (payload) {
+        return get('/test', payload);
+    },
 };
 // 下略
 ```
 
-现有一个请求方式为get，url为 /test_login 的测试异步请求。
+现有一个请求方式为get，url为 ``/test`` 的测试异步请求。
 
-现根据需求，需要添加一个 post 请求，url为 /test_post，需要传一个对象，测试数据为 ``{ data:1 }``
+现根据需求，需要添加一个 post 请求，url为 ``/test_login``，需要传一个对象，测试数据为 ``{ data:1 }``
 
 修改后代码如下：
 
 ```
 // 上略
 const $ajax = {
-    test_login () {
-        return get('/test_login', {});
+    // 示例
+    test1 (payload) {
+        return get('/test', payload);
     },
-    // payload为参数，即需要传的数据
-    test_post (payload) {
-        return post('/test_post', payload)
-    }
+    test2 (payload) {
+        return post('/test_login', payload);
+    },
 };
 // 下略
 ```
@@ -217,7 +220,7 @@ const $ajax = {
 先在 template 里添加一个测试按钮吧
 
 ```
-<button @click="test_post">post测试按钮</button>
+<button @click="testPost">post测试按钮</button>
 ```
 
 再新增一个方法，写在 methods 里：
@@ -225,11 +228,11 @@ const $ajax = {
 ```
 methods: {
 	// ... 略
-    test_post () {
+    testPost () {
     	 const data = {
             a: 1
         }
-        this.$ajax.test_login(data).then(result => {
+        this.$ajax.test2(data).then(result => {
             console.log(result)
         }).catch(err => {
             console.log(`err:${err}`)

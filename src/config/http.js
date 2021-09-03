@@ -6,7 +6,7 @@
  *
  */
 import axios from 'axios';
-import { baseURL, imgURL } from './env.js';
+import { baseURL } from './env.js';
 // 是否启用使用form表单形式提交数据，默认不启用
 const USE_FORM = false;
 
@@ -21,29 +21,29 @@ if (USE_FORM) {
     axios.defaults.transformRequest = [
         function (data) {
             let ret = '';
-            for (let it in data) {
+            for (const it in data) {
                 ret += encodeURIComponent(it) + '=' +
                     encodeURIComponent(data[it]) + '&';
             }
             ret = ret.slice(0, -1);
             return ret;
-        }
+        },
     ];
 }
 
-let post = (url, data) => {
+const post = (url, data) => {
     return axios({
         method: 'post',
         url,
-        data
+        data,
     });
 };
 
-let get = (url, params) => {
+const get = (url, params) => {
     return axios({
         method: 'get',
         url,
-        params
+        params,
     });
 };
 

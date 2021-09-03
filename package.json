@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "webpack serve --mode development --env development --config build/webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --mode production --config build/webpack.config.js",
-    "lint": "eslint --ext .js,.jsx src"
+    "lint": "eslint --fix --ext .js,.jsx,.vue src"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

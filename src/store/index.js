@@ -11,7 +11,7 @@ export default new Vuex.Store({
     // 定义全局状态
     state: {
         dictionary: [],
-        auth: {}
+        auth: {},
     },
 
     // 定义 getter
@@ -21,5 +21,5 @@ export default new Vuex.Store({
     mutations,
 
     // 定义异步操作方法
-    actions
+    actions,
 });

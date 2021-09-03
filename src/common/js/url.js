@@ -13,10 +13,10 @@ const URL = {
     // 示例2：url = '/abc?userid=123', kvObj = {a:'123', b:'test'}，返回字符串 '/url?userid=123&a=123&b=test'
     // 示例3：url = '/abc?a=abc', kvObj = {a:'123', b:'test'}，返回字符串 '/url?a=123&b=test'
     makeSearchUrl (url, kvObj) {
-        const splitUrl = url.split('?')
-        const BaseUrl = splitUrl[0];  // 示例 3 这里获得 '/abc'
+        const splitUrl = url.split('?');
+        const BaseUrl = splitUrl[0]; // 示例 3 这里获得 '/abc'
         const kvUrl = splitUrl[1];
-        let originKvObj = {};
+        const originKvObj = {};
         // 如果 kvUrl 不为空，说明可能存在 search 字符串。
         // 那么 先要排除 hash 部分
         if (kvUrl) {
@@ -28,21 +28,21 @@ const URL = {
                     const k = kv.split('=')[0];
                     const v = kv.split('=')[1];
                     // 转义后赋值（把 url 编码转非 url 编码），比如 "%E7%94%A8%E6%88%B7%E5%90%8D" 变为 "用户名"
-                    originKvObj[decodeURIComponent(k)] = decodeURIComponent(v)
-                })
+                    originKvObj[decodeURIComponent(k)] = decodeURIComponent(v);
+                });
             }
         }
         // 获取一个完整的对象，如果用到同 k，用 kvObj 覆盖他
-        let resultKvObj = Object.assign({}, originKvObj, kvObj);
-        let resultSearchUrl = Object.keys(resultKvObj).map(key => {
+        const resultKvObj = Object.assign({}, originKvObj, kvObj);
+        const resultSearchUrl = Object.keys(resultKvObj).map(key => {
             return `${encodeURIComponent(key)}=${encodeURIComponent(resultKvObj[key])}`;
         }).join('&');
-        return `${BaseUrl}?${resultSearchUrl}`
+        return `${BaseUrl}?${resultSearchUrl}`;
     },
 
     makeOnlySearchURL (kvObj) {
         // 获取一个完整的对象，如果用到同 k，用 kvObj 覆盖他
-        let resultSearchUrl = Object.keys(kvObj).map(key => {
+        const resultSearchUrl = Object.keys(kvObj).map(key => {
             return `${encodeURIComponent(key)}=${encodeURIComponent(kvObj[key])}`;
         }).join('&');
 
@@ -55,29 +55,29 @@ const URL = {
         const searchStr = window.location.search;
         if (searchStr.length > 1) {
             // 先拿到kv数组
-            const searchList = searchStr.slice(1).split('&')
+            const searchList = searchStr.slice(1).split('&');
             searchList.forEach(kv => {
                 const kvList = kv.split('=');
                 if (kvList[0] === decodeURIComponent(k)) {
-                    v = decodeURIComponent(kvList[1])
+                    v = decodeURIComponent(kvList[1]);
                 }
-            })
+            });
         }
-        return v
+        return v;
     },
 
     // 读取url中的hash参数
     getHashParameter (key) {
-        let params = this.$getHashParams();
+        const params = this.$getHashParams();
         return params[key];
     },
 
     // 获取hash参数对像
     getHashParams () {
-        let arr = (location.hash || '').replace(/^#/, '').split('&');
-        let params = {};
+        const arr = (location.hash || '').replace(/^#/, '').split('&');
+        const params = {};
         for (let i = 0; i < arr.length; i++) {
-            let data = arr[i].split('=');
+            const data = arr[i].split('=');
             if (data.length === 2) {
                 params[data[0]] = data[1];
             }
@@ -86,10 +86,10 @@ const URL = {
     },
     // url写入hash参数
     setHashParameter (obj) {
-        let params = this.$getHashParams();
-        let newParams = Object.assign(params, obj);
-        let hashStr = this.$makeOnlySearchURL(newParams);
+        const params = this.$getHashParams();
+        const newParams = Object.assign(params, obj);
+        const hashStr = this.$makeOnlySearchURL(newParams);
         location.hash = '#' + hashStr;
     }
-}
-export default URL
+};
+export default URL;

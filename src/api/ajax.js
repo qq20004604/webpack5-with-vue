@@ -7,15 +7,18 @@
  */
 import { get, post } from '../config/http';
 
-let $ajax = {
+const $ajax = {
     // 示例
     test (payload) {
         return post('/test', payload);
     },
+    testGet (payload) {
+        return get('/test', payload);
+    },
 };
 
 export default {
-    install: function (Vue, options) {
+    install: function (Vue) {
         // 添加方法，可以修改 <title> 标签的内容
         Vue.prototype.$ajax = $ajax;
     }

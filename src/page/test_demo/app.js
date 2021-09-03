@@ -8,19 +8,19 @@
 
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App.vue'
-import CommonUtils from '@/common/js/pre_setting.js'
+import Vue from 'vue';
+import App from './App.vue';
+import CommonUtils from '@/common/js/pre_setting.js';
 
 // 浏览器的title（就是显示在tag标签的本页面名字）
-const TITLE = '测试demo，纯vue'
+const TITLE = '测试demo，纯vue';
 
-CommonUtils.setTitle(TITLE)
-CommonUtils.init()
+CommonUtils.setTitle(TITLE);
+CommonUtils.init();
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     template: '<App/>',
     components: { App }
-})
+});

@@ -7,40 +7,46 @@
  */
 const fs = require('fs');
 const path = require('path');
-const {exec, execSync} = require('child_process');
+const {
+    exec,
+    execSync,
+} = require('child_process');
 
 const CWD = process.cwd();
 
 const CMD = function (cmdstr) {
-    return new Promise(function (resolve, reject) {
-        exec(cmdstr, 'utf8', function (err, stdout, stderr) {
+    return new Promise((resolve, reject) => {
+        exec(cmdstr, 'utf8', (err, stdout, stderr) => {
             if (err) {
-                console.log('---------------exec err---------------')
-                return reject(err)
+                console.log('---------------exec err---------------');
+                return reject(err);
             }
             if (stderr) {
-                console.log('---------------exec stderr---------------')
-                return reject(stderr)
+                console.log('---------------exec stderr---------------');
+                return reject(stderr);
             }
-            console.log(`---------------【${cmdstr}】输出结果---------------`)
-            resolve(stdout.trim())
-        })
-    })
-}
+            console.log(`---------------【${cmdstr}】输出结果---------------`);
+            resolve(stdout.trim());
+        });
+    });
+};
 const CMDSync = function (cmdstr) {
     const result = execSync(cmdstr, {
-        encoding: 'utf8'
+        encoding: 'utf8',
     });
     return result.trim();
-}
+};
 
 class GitManager {
     // tag 名列表
     tagNameList = [];
+
     // tag 文件路径的列表
     tagPathList = [];
+
     // tag 该次的 SHA 值
     tagSHAList = [];
+
     // tag 匹配规则
     tagRules = [];
 
@@ -56,7 +62,7 @@ class GitManager {
     // 当没有规则时，任何 tag 都可以
     // 规则是正则表达式
     addRule (rule) {
-        this.tagRules.push(rule)
+        this.tagRules.push(rule);
     }
 
     // 是否在规则范围内。
@@ -71,37 +77,38 @@ class GitManager {
         this.tagNameList = fs.readdirSync('./.git/refs/tags');
         // 根据 tag 生成 tag 文件的完整文件路径
         this.tagPathList = this.tagNameList.map(tag => {
-            return path.join(CWD, './.git/refs/tags', tag)
-        })
+            return path.join(CWD, './.git/refs/tags', tag);
+        });
         this.tagSHAList = this.tagPathList.map(path => {
             const data = fs.readFileSync(path);
             const text = data.toString().trim();
             // console.log('同步读取: ' + text);
-            return text
-        })
+            return text;
+        });
         console.log(this.tagSHAList);
         CMD('ls').then(result => {
             console.log(result);
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
     // 获取最新的 tag
-    getLastestTag () {
-        CMD('git describe --tags `git rev-list --tags --max-count=1`').then(result => {
-            console.log(result)
-        }).catch(err => {
-        })
-    }
-
-    // 获得当前提交的 tag，没有 tag 的时候为空
-    getCurrentCommitTag () {
-        CMD('git tag -l --points-at HEAD').then(result => {
-            console.log(result)
-        }).catch(err => {
-        })
-    }
+    // getLastestTag () {
+    //     CMD('git describe --tags `git rev-list --tags --max-count=1`').then(
+    //         result => {
+    //             console.log(result);
+    //         }).catch(err => {
+    //     });
+    // }
+    //
+    // // 获得当前提交的 tag，没有 tag 的时候为空
+    // getCurrentCommitTag () {
+    //     CMD('git tag -l --points-at HEAD').then(result => {
+    //         console.log(result);
+    //     }).catch(err => {
+    //     });
+    // }
 
     // 获得当前提交的 tag，没有 tag 的时候为空（同步版）
     // 只有有符合规则的 tag 时，才会返回
@@ -117,8 +124,8 @@ class GitManager {
                 if (rule.test(tag)) {
                     result = tag;
                 }
-            })
-        })
+            });
+        });
         return result;
     }
 }

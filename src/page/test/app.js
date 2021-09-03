@@ -5,12 +5,12 @@
  * 功能说明：
  *
  */
-var a = 1;
+let a = 1;
 a = a + 1;
 console.log(a);
 const fn = (m) => {
     return m + 1;
-}
+};
 window.b = fn(a);
 
 class Test {
@@ -28,5 +28,5 @@ class Test {
 }
 
 const b = new Test();
-b.set(3)
+b.set(3);
 console.log(b.get());

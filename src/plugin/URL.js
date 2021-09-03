@@ -8,7 +8,7 @@
 import URL from '@/common/js/url';
 
 export default {
-    install: function (Vue, options) {
+    install: function (Vue) {
         // 添加方法，可以修改 <title> 标签的内容
         Vue.prototype.$makeSearchUrl = URL.makeSearchUrl;
         Vue.prototype.$getFromSearchURL = URL.getFromSearchURL;
@@ -17,4 +17,4 @@ export default {
         Vue.prototype.$setHashParameter = URL.setHashParameter;
         Vue.prototype.$getHashParams = URL.getHashParams;
     }
-}
+};
