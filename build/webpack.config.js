@@ -2,9 +2,9 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const gitManager = require('./git_manage.js').gitManager;
 const fs = require('fs');
@@ -63,7 +63,7 @@ const getEntries = function () {
                 removeAttributeQuotes: isProd, // 去掉引号
             },
             hash: true, // 去掉上次浏览器的缓存（使浏览器每次获取到的是最新的html）
-            chunks: [ item.filename /*'vendor'*/], // 实现多入口的核心，决定自己加载哪个js文件，
+            chunks: [ item.filename /*'vendor'*/ ], // 实现多入口的核心，决定自己加载哪个js文件，
             xhtml: true, // 自闭标签
         });
     });
@@ -133,10 +133,12 @@ const config = {
         progress: false,
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:8080',
+                target: 'http://cf-pc-dev.wti-xa.com:7777',
+                // target: 'https://project-bff-dev.wti-xa.com',
+                // target: 'http://172.16.7.115:8080',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': '',
+                    // '^/api': '',
                 },
             },
         },
@@ -342,7 +344,7 @@ if (isProd) {
                 extractComments: false,
             }),
         ],
-        runtimeChunk: { name: 'runtime' }, // 为每个入口提取出webpack runtime模块
+        runtimeChunk: {name: 'runtime'}, // 为每个入口提取出webpack runtime模块
     };
     config.externals = {
         'vue': 'Vue',
@@ -387,7 +389,7 @@ if (isProd) {
                 },
             },
         },
-        runtimeChunk: { name: 'runtime' }, // 为每个入口提取出webpack runtime模块
+        runtimeChunk: {name: 'runtime'}, // 为每个入口提取出webpack runtime模块
     };
 }
 
