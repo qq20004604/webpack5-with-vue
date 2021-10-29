@@ -25,7 +25,7 @@ module.exports = {
         'plugin:vue/recommended',
     ],
     // required to lint *.vue files
-    plugins: [ 'import', 'vue' ],
+    plugins: ['import', 'vue'],
     // add your custom rules here
     rules: {
         // https://cn.eslint.org/docs/rules/
@@ -68,21 +68,21 @@ module.exports = {
         'vars-on-top': 2,
         'no-delete-var': 2,
         'no-unused-vars': 2,
-        'array-bracket-spacing': [ 2, 'always' ],
+        'array-bracket-spacing': [2, 'always'],
         'no-extra-semi': 2,
         'camelcase': [
             2,
             {
                 'properties': 'always',
                 'ignoreDestructuring': true,
-                'allow': [ 'wti_type' ],
+                'allow': ['wti_type'],
             },
         ],
         'no-mixed-spaces-and-tabs': 2,
         'no-tabs': 2,
         'no-unneeded-ternary': 2,
-        'quotes': [ 2, 'single' ],
-        'space-before-function-paren': [ 2, 'always' ],
+        'quotes': [2, 'single'],
+        'space-before-function-paren': [2, 'always'],
         'no-const-assign': 2,
         'no-this-before-super': 2,
         'no-var': 2,
@@ -90,21 +90,21 @@ module.exports = {
         'prefer-const': 1,
 
         'new-cap': 1,
-        'semi': [ 2, 'always' ],
-        'semi-style': [ 2, 'last' ],
+        'semi': [2, 'always'],
+        'semi-style': [2, 'last'],
         // allow async-await
         'generator-star-spacing': 0,
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-        indent: [ 'error', 4 ], // 缩进
+        indent: ['error', 4], // 缩进
         // https://eslint.vuejs.org/rules/
         'vue/html-indent': 'off',
-        'vue/script-indent': [ 'error', 4, {'baseIndent': 1} ],
+        'vue/script-indent': ['error', 4, { 'baseIndent': 1 }],
         'vue/html-closing-bracket-spacing': [
             'error', {
                 'endTag': 'never',
                 'selfClosingTag': 'never',
-            } ],
+            }],
         'vue/max-attributes-per-line': 0,
         'vue/attributes-order': 0,
         'vue/order-in-components': 0,
@@ -125,17 +125,17 @@ module.exports = {
                 },
                 'svg': 'always',
                 'math': 'always',
-            } ],
+            }],
         'vue/html-closing-bracket-newline': [
             'error', {
                 'singleline': 'never',
                 'multiline': 'never',
-            } ],
+            }],
         'vue/singleline-html-element-content-newline': 0,
     },
     'overrides': [
         {
-            'files': [ '*.vue' ],
+            'files': ['*.vue'],
             'rules': {
                 'indent': 'off',
             },
