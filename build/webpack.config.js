@@ -57,7 +57,7 @@ const getEntries = function () {
                 `index_${process.env.npm_lifecycle_event === 'build'
                     ? 'prd'
                     : 'dev'}.html`),
-            title: '西部信托',
+            title: '标题',
             minify: { // 对index.html压缩
                 collapseWhitespace: isProd, // 去掉index.html的空格
                 removeAttributeQuotes: isProd, // 去掉引号
